@@ -6,7 +6,8 @@
  * 
  * ==================================================================================
  * TODO
- * 	FUCK OFF DANE I'M NOT ADDING ANYTHING ELSE!
+ * 	- Lighten the load, problems loading in IE7
+ * 	- Helper functions not working correctly in IE7
  */
 var isLoaded = false;
 
@@ -56,7 +57,7 @@ JSConsole = {
 		var container = self.buildElement({
 			'name':'js-container-' + self.date,
 			'type':'div',
-			'content':'<div style="padding: 10px; overflow: hidden;"><div><a style="margin-right: 5px; border:0;" title="Reset your console" href="#reset-output"><img style="border:0;" src="http://cdn1.iconfinder.com/data/icons/fatcow/32x32_0060/arrow_rotate_anticlockwise.png" width="16" height="16" /></a><a style="margin-right: 5px; border: 0;" title="Add a border to elements" href="#border"><img style="border:0;" src="http://cdn1.iconfinder.com/data/icons/fatcow/32x32/table_select_big.png" height="16" width="16" /></a><a style="margin-right: 5px; border: 0;" title="Open/close the inspector" href="#inspectToggle"><img style="border:0;" src="http://cdn1.iconfinder.com/data/icons/fatcow/32x32/document_inspect.png" height="16" width="16" /></a></div>' + inputHtml + outputHtml + '</div>',
+			'content':'<div style="padding: 10px; overflow: hidden;"><div><a class="command" style="margin-right: 5px; border:0;" title="Reset your console" href="#reset-output"><img style="border:0;" src="http://cdn1.iconfinder.com/data/icons/fatcow/32x32_0060/arrow_rotate_anticlockwise.png" width="16" height="16" /></a><a class="command" style="margin-right: 5px; border: 0;" title="Add a border to elements" href="#border"><img style="border:0;" src="http://cdn1.iconfinder.com/data/icons/fatcow/32x32/table_select_big.png" height="16" width="16" /></a><a class="command" style="margin-right: 5px; border: 0;" title="Open/close the inspector" href="#inspectToggle"><img style="border:0;" src="http://cdn1.iconfinder.com/data/icons/fatcow/32x32/document_inspect.png" height="16" width="16" /></a></div>' + inputHtml + outputHtml + '</div>',
 			'styles':'background: #fafafa; border-top: 1px solid #dedede; position: fixed; bottom: 0; left: 0; width:100%; z-index;'
 		});				
 		
@@ -100,10 +101,12 @@ JSConsole = {
 			return false;
 		});
 
-		$('[name="js-container-' + self.date + '"]" a[href^="#"]').bind('click', function(ev){
+		$('[name="js-container-' + self.date + '"]" a.command').bind('click', function(ev){
 			var $el = $(this);
 			var func = $el.attr('href').replace('#', '');
 			var options = {name:func, params:[]};
+
+			console.log('clicked');
 
 			switch(func){
 				case 'border':
